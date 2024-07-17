@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "MeetUp",
   description: "Video Calling App",
   icons: {
-    icon: "/icons/logo.svg",
+    icon: "/icons/logo-light.svg",
   },
 };
 
@@ -28,7 +28,7 @@ export default function RootLayout({
       <ClerkProvider
         appearance={{
           layout: {
-            logoImageUrl: "/icons/yoom-logo.svg",
+            logoImageUrl: "/icons/textLogo_light.svg",
             socialButtonsVariant: "iconButton",
           },
           variables: {

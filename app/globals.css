@@ -31,7 +31,7 @@
 }
 
 .str-video__participant-list {
-  background-color: #1c1f2e;
+  background-color: #0f0f0f;
   padding: 10px;
   border-radius: 10px;
   color: white;
@@ -55,11 +55,33 @@
 
 /* ==== clerk class override ===== */
 
+.cl-internal-rvg68x {
+  color: white;
+}
+
+.cl-providerIcon__apple {
+  filter: invert(1);
+}
+
 .cl-providerIcon__github {
   filter: invert(1);
 }
 
 .cl-userButtonPopoverActionButtonIcon {
+  color: white;
+}
+
+.cl-navbarButton {
+  color: white;
+}
+
+.cl-badge {
+  border: 1px solid #ffffff60;
+  color: white;
+}
+
+.cl-userButtonPopoverActionButton:hover {
+  background: #0f0f0f;
   color: white;
 }
 
