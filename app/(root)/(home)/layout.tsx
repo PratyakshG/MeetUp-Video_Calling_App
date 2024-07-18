@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "MeetUp",
   description: "Video Calling App",
   icons: {
-    icon: "/icons/logo.svg",
+    icon: "/icons/meetUplogo.svg",
   },
 };
 
