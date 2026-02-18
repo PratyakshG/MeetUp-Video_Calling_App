@@ -4,11 +4,25 @@ import React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { sidebarLinks } from "@/constants";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import { Button } from "./ui/button";
+import { authClient } from "@/lib/auth-client";
+import { LogOut } from "lucide-react";
 
 const Sidebar = () => {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const signOut = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/sign-in");
+        },
+      },
+    });
+  };
 
   return (
     <section className="sticky left-0 top-0 flex h-screen w-fit flex-col justify-between bg-dark-1 p-6 pt-[14vh] text-white max-sm:hidden lg:w-[264px]">
@@ -25,6 +39,7 @@ const Sidebar = () => {
                 "group flex gap-4 items-center p-4 rounded-lg justify-start",
                 {
                   "bg-blue-2": isActive,
+                  "hover:bg-blue-2/40": !isActive,
                 },
               )}
             >
@@ -41,6 +56,15 @@ const Sidebar = () => {
           );
         })}
       </div>
+
+      <Button
+        onClick={signOut}
+        variant="destructive"
+        className="gap-2"
+      >
+        <LogOut size={16} />
+        Logout
+      </Button>
     </section>
   );
 };

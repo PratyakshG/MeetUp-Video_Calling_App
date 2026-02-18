@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { useGetCallById } from "@/hooks/useGetCallById";
-import { useUser } from "@clerk/nextjs";
+import { authClient } from "@/lib/auth-client";
 import { useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -25,8 +25,9 @@ const Table = ({
   </div>
 );
 const PersonalRoom = () => {
-  const { user } = useUser();
-  const meetingId = user?.id;
+  // const { user } = useUser();
+  const { data: session } = authClient.useSession();
+  const meetingId = session?.user?.id;
   const { toast } = useToast();
   const { call } = useGetCallById(meetingId!);
   const client = useStreamVideoClient();
@@ -35,7 +36,7 @@ const PersonalRoom = () => {
   const meetingLink = `${process.env.NEXT_PUBLIC_BASE_URL}/meeting/${meetingId}?personal = true`;
 
   const startRoom = async () => {
-    if (!client || !user) return;
+    if (!client || !session?.user) return;
 
     const newCall = client.call("default", meetingId!);
 
@@ -57,7 +58,7 @@ const PersonalRoom = () => {
       <div className="flex w-full flex-col gap-8 xl:max-w-[900px]">
         <Table
           title="Topic:"
-          description={`${user?.username} meeting room`}
+          description={`${session?.user?.name} meeting room`}
         />
         <Table
           title="Meeting ID:"

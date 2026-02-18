@@ -5,12 +5,12 @@ import React, { useState } from "react";
 import MeetingCard from "./MeetingCard";
 import { useRouter } from "next/navigation";
 import MeetingModal from "./MeetingModal";
-import { useUser } from "@clerk/nextjs";
 import { Call, useStreamVideoClient } from "@stream-io/video-react-sdk";
 import { useToast } from "@/components/ui/use-toast";
 import { Textarea } from "./ui/textarea";
 import ReactDatePicker from "react-datepicker";
 import { Input } from "./ui/input";
+import { authClient } from "@/lib/auth-client";
 
 const MeetingTypeList = () => {
   const router = useRouter();
@@ -27,11 +27,11 @@ const MeetingTypeList = () => {
   const [callDetails, setcallDetails] = useState<Call>();
   const { toast } = useToast();
 
-  const { user } = useUser();
+  const { data: session } = authClient.useSession();
   const client = useStreamVideoClient();
 
   const createMeeting = async () => {
-    if (!client || !user) return;
+    if (!client || !session?.user) return;
 
     try {
       if (!values.dateTime) {
